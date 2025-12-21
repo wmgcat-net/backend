@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: wmgcat.net
+  version: 1.0.0
+servers:
+  - url: api.wmgcat.net
+paths:
+  /games:
+    get:
+      tags:
+        - "Games"
+      summary: View all games
+      parameters:
+        - name: offset
+          in: query
+          description: Offset
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          description: Limit
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 25
+            default: 5
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
+                    description: List games
+                  offset:
+                    type: number
+                    description: Offset
+                  limit:
+                    type: number
+                    description: Limit
+                  total:
+                    type: number
+                    description: Total counter
+        '422':
+          description: Error content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    description: Error message
+  
+  /games/{id}:
+    get:
+      tags:
+        - "Games"
+      summary: Game Details
+      parameters:
+        - name: id
+          in: path
+          description: Game ID
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '422':
+          description: Error content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    description: Error message
+
+  /creatives:
+    get:
+      tags:
+        - "Creatives"
+      summary: View all creatives
+      parameters:
+        - name: offset
+          in: query
+          description: Offset
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          description: Limit
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 25
+            default: 5
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Creative'
+                    description: List creatives
+                  offset:
+                    type: number
+                    description: Offset
+                  limit:
+                    type: number
+                    description: Limit
+                  total:
+                    type: number
+                    description: Total counter
+        '422':
+          description: Error content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    description: Error message
+  
+  /creatives/{id}:
+    get:
+      tags:
+        - "Creatives"
+      summary: Creative Details
+      parameters:
+        - name: id
+          in: path
+          description: Creative ID
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Creative'
+        '422':
+          description: Error content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    description: Error message
+
+components:
+  schemas:
+    Game:
+      description: Game
+      type: object
+      required: 
+        - "id"
+        - "title"
+      properties:
+        id:
+          type: number
+          description: ID
+        title:
+          type: string
+          description: Game title
+        description:
+          type: string
+          description: Description
+        links:
+          type: array
+          description: Links
+          items:
+            $ref: '#/components/schemas/Link'
+        files:
+          type: array
+          description: Files avatars, screenshots and video
+          items:
+            $ref: '#/components/schemas/File'
+        date_created:
+          type: string
+          description: Date created
+
+    Creative:
+      description: Creative
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        links:
+          type: array
+          description: Links
+          items:
+            $ref: '#/components/schemas/Link'
+        author:
+          type: string
+          description: Author's nickname
+        date_created:
+          type: string
+          description: Date created
+    
+    Link:
+      description: Game Link
+      type: object
+      properties:
+        type:
+          type: string
+          description: Link type
+        href:
+          type: string
+          description: Href
+    File:
+      description: Instance file
+      type: object
+      properties:
+        name:
+          type: string
+          description: Filename (with path)
+        href:
+          type: string
+          description: Href

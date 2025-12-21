@@ -1,8 +1,9 @@
 import z from "zod";
+import Err from "@/utils/errors";
 
-const IdValidate = z.number({ error: "errors.invalid.id" })
-    .nonnegative({ error: "errors.invalid.id" })
-    .int({ error: "errors.invalid.id" })
-    .nonoptional({ error: "errors.required.id" });
+const IdValidate = z.number({ error: Err.id_invalid })
+    .nonnegative({ error: Err.id_invalid })
+    .int({ error: Err.id_invalid })
+    .nonoptional({ error: Err.id_required });
 
 export default IdValidate;

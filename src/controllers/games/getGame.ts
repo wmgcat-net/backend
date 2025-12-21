@@ -1,4 +1,5 @@
 import { getGame as getGameService } from "@/services/games";
+import getStorageFiles from "@/utils/getStorageFiles";
 import { Request, Response } from "express";
 
 /**
@@ -12,9 +13,14 @@ const getGame = async (req: Request, res: Response): Promise<void> => {
     const data = await getGameService(id);
 
     if (!data)
-        throw new Error("errors.exists");
+        throw new Error("Game isn't exists");
 
-    res.status(200).json(data);
+    const files = await getStorageFiles(id);
+
+    res.status(200).json({
+        data,
+        files
+    });
 }
 
 export default getGame;

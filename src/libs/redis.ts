@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const CACHE_TTL: number = 3600 * 24;;
+const CACHE_TTL: number = 3600 * 8;
 const cluster = new Redis({
     host: process.env.REDIS_URL,
     username: process.env.REDIS_USERNAME,

@@ -1,15 +1,29 @@
-import express, { ErrorRequestHandler, NextFunction, Request, Response } from "express";
+import express, {
+    ErrorRequestHandler,
+    NextFunction,
+    Request,
+    Response
+} from "express";
+import cors from "cors";
+
 import Games from "@/routes/games";
+import Creatives from "@/routes/creatives";
+import Err from "@/utils/errors";
 
 const app = express();
 
+app.use(cors({
+    origin: "*"
+}));
+
 app.use("/games", Games);
+app.use("/creatives", Creatives);
 
 // Error handler:
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
     if (err && (err instanceof Error)) {
         res.status(422).json({
-            error_message: err?.message?.toString() || "errors.invalid.content"
+            error_message: err?.message?.toString() || Err.content_invalid
         })
         return;
     }

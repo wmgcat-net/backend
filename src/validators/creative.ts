@@ -2,29 +2,19 @@ import z from "zod";
 import IdValidate from "./id";
 import Err from "@/utils/errors";
 
-export enum Types {
-    steam="steam",
-    itch="itch",
-    newgrounds="ng",
-    poki="poki",
-    webplatform="wp"
-}
-
-export const GameValidate = z.object({
+export const CreativeValidate = z.object({
     /** ID */
     id: IdValidate,
-    /** Title */
-    title: z.string({ error: Err.title_invalid })
+    /** Author */
+    author: z.string({ error: Err.author_invalid })
         .trim()
-        .nonempty({ error: Err.title_required }),
-    /** Description */
-    description: z.string({ error: Err.description_invalid })
-        .optional(),
+        .nonempty({ error: Err.author_required }),
     /** Links */
     links: z.array(
         z.object({
             /** Resource type */
-            type: z.enum(Types, { error: Err.type_invalid })
+            type: z.string({ error: Err.type_invalid })
+                .trim()
                 .nonoptional({ error: Err.type_required }),
             /** Link href */
             href: z.string({ error: Err.href_invalid })
@@ -32,7 +22,7 @@ export const GameValidate = z.object({
                 .nonoptional({ error: Err.href_required })
         })
     ).optional(),
-    /** Files: avatars, screenshots and video */
+    /** Files  */
     files: z.array(
         z.object({
             /** Filename */
@@ -49,5 +39,5 @@ export const GameValidate = z.object({
     date_created: z.date({ error: Err.date_invalid })
 });
 
-type Game = z.infer<typeof GameValidate>;
-export default Game;
+type Creative = z.infer<typeof CreativeValidate>;
+export default Creative;

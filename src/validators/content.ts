@@ -1,32 +1,33 @@
 import z from "zod";
+import Err from "@/utils/errors";
 
 export const ContentValidate = z.object({
     /** IDs */
     items: z.array(
-        z.number({ error: "errors.invalid.items" })
-            .nonnegative({ error: "errors.invalid.items" })
-            .int({ error: "errors.invalid.items" })
-            .nonoptional({ error: "errors.required.items "})
+        z.number({ error: Err.items_invalid })
+            .nonnegative({ error: Err.items_invalid })
+            .int({ error: Err.items_invalid })
+            .nonoptional({ error: Err.items_required })
     ).optional(),
     /** Total counter */
-    total: z.number({ error: "errors.invalid.total" })
-            .nonnegative({ error: "errors.invalid.total" })
-            .int({ error: "errors.invalid.total" })
-            .nonoptional({ error: "errors.required.total "})
+    total: z.number({ error: Err.total_invalid })
+            .nonnegative({ error: Err.total_invalid })
+            .int({ error: Err.total_invalid })
+            .nonoptional({ error: Err.total_required })
 });
 
 export const PaginationValidate = z.object({
     /** Offset */
-    offset: z.number({ error: "errors.invalid.offset" })
-            .nonnegative({ error: "errors.invalid.offset" })
-            .int({ error: "errors.invalid.offset" })
+    offset: z.number({ error: Err.offset_invalid })
+            .nonnegative({ error: Err.offset_invalid })
+            .int({ error: Err.offset_invalid })
             .optional(),
     /** Limit */
-    limit: z.number({ error: "errors.invalid.limit" })
-            .nonnegative({ error: "errors.invalid.limit" })
-            .int({ error: "errors.invalid.limit" })
-            .max(25, { error: "errors.invalid.limit" })
-            .min(1, { error: "errors.invalid.limit" })
+    limit: z.number({ error: Err.limit_invalid })
+            .nonnegative({ error: Err.limit_invalid })
+            .int({ error: Err.limit_invalid })
+            .max(25, { error: Err.limit_invalid })
+            .min(1, { error: Err.limit_invalid })
             .optional()
 
 });
