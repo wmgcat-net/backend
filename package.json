@@ -8,6 +8,7 @@
     "start": "tsx index.ts",
     "dev": "tsx watch index.ts",
     "build": "tsc && tsc-alias",
+    "test": "mocha",
     "docker": "docker build . -t wmgcat_backend"
   },
   "keywords": [],
@@ -19,6 +20,7 @@
     "express": "^5.2.1",
     "ioredis": "^5.8.2",
     "minio": "^8.0.6",
+    "mocha": "^11.7.5",
     "pg": "^8.16.3",
     "tsc": "^2.0.4",
     "tsc-alias": "^1.8.16",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^24.10.1",
     "@types/pg": "^8.16.0"
   }

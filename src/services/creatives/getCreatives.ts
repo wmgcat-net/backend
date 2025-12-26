@@ -10,7 +10,7 @@ import Content, { ContentValidate, PaginationValidate } from "@/validators/conte
  * @param limit - Limit
  * @returns 
 */
-const getCreatives = async (offset: number, limit: number): Promise<Content> => {
+const getCreatives = async (offset?: number, limit?: number): Promise<Content> => {
     validate(PaginationValidate, {
         offset,
         limit
