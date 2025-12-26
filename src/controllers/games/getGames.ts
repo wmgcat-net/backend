@@ -19,14 +19,17 @@ const getGames = async (req: Request, res: Response): Promise<void> => {
     const content = await getGamesService(offset, limit);
     const items: Game[] = [];
 
-    for (const id of content.items) {
-        const game = await getGameService(id);
-        const files = await getStorageFiles(id);
-        items.push({
-            ...game,
-            files
-        });
-    }
+    if (content?.items?.length)
+        for (const id of content.items) {
+            const game = await getGameService(id);
+            if (!game)
+                continue;
+            const files = await getStorageFiles(id);
+            items.push({
+                ...game,
+                files
+            });
+        }
 
     res.status(200).json({
         items,

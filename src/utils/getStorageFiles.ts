@@ -41,7 +41,10 @@ const getStorageFiles = async (id: number, bucketName: Bucket = "games"): Promis
     }
 
     return new Promise((res, rej) => {
-        const links = [];
+        const links: Promise<{
+            name: string,
+            href: string
+        }>[] = [];
         const stream = minio.listObjectsV2(bucketName, `${id}/`, true);
         stream.on('data', (obj) => {
             if (obj.name) {
@@ -57,6 +60,10 @@ const getStorageFiles = async (id: number, bucketName: Bucket = "games"): Promis
 
         stream.on("error", err => rej(err));
         stream.on("end", async () => {
+            if (!links?.length) {
+                res([]);
+                return;
+            }
             const files = await Promise.all(links);
             
             redis.writeWithLog(cache_key, JSON.stringify(files));

@@ -1,13 +1,23 @@
 {
     "compilerOptions": {
-        "target": "ES2021",
+        "strict": true,
+        "target": "esnext",
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
         },
-        "module": "ESNext",
+        "module": "esnext",
         "moduleResolution": "bundler",
         "esModuleInterop": true,
-        "outDir": "./dist"
-    }
+        "outDir": "./dist",
+        "removeComments": true,
+        "sourceMap": true,
+        "composite": true,
+        "noEmit": true,
+        "skipLibCheck": true,
+    },
+    "exclude": [
+        "tests/*",
+        "./dist/**/*"
+    ]
 }

@@ -24,7 +24,7 @@ cluster.on('cluster error', (err) => {
 
 const isReady = () => cluster.status == "ready";
 interface CustomClient {
-    readWithLog: (key: string) => Promise<string>;
+    readWithLog: (key: string) => Promise<string | null>;
     writeWithLog: (key: string, data: string) => void;
     delWithLog: (key: string) => Promise<void>;
     delAllWithLog: (key: string, batchSize?: number) => Promise<number>;
@@ -39,18 +39,21 @@ const redis = cluster as RedisClient;
  * @param key - cache key 
  * @returns
 */
-redis.readWithLog = async (key: string): Promise<string> => {
-    let cache: string;
+redis.readWithLog = async (key: string): Promise<string | null> => {
     if (!isReady())
-        return cache;
+        return null;
 
-    try { cache = await cluster.get(key); }
+    let cache: string | null;
+    try {
+        cache = await cluster.get(key);
+        return cache;
+    }
     catch (err) {
         console.log("[redis, read]", err);
         cluster.disconnect();
     }
 
-    return cache;
+    return null;
 }
 
 /**

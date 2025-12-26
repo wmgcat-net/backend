@@ -10,7 +10,7 @@ import IdValidate from "@/validators/id";
  * @param id - Creative ID
  * @returns
 */
-const getCreative = async (id: number): Promise<Creative> => {
+const getCreative = async (id: number): Promise<Creative | null> => {
     validate(IdValidate, id);
 
     const cache_key = `creative:${id}`;

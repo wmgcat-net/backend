@@ -19,14 +19,17 @@ const getCreatives = async (req: Request, res: Response): Promise<void> => {
     const content = await getCreativesService(offset, limit);
     const items: Creative[] = [];
 
-    for (const id of content.items) {
-        const creative = await getCreativeService(id);
-        const files = await getStorageFiles(id, "creatives");
-        items.push({
-            ...creative,
-            files
-        });
-    }
+    if (content?.items?.length)
+        for (const id of content.items) {
+            const creative = await getCreativeService(id);
+            if (!creative)
+                continue;
+            const files = await getStorageFiles(id, "creatives");
+            items.push({
+                ...creative,
+                files
+            });
+        }
 
     res.status(200).json({
         items,

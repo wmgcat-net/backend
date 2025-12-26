@@ -10,7 +10,7 @@ import IdValidate from "@/validators/id";
  * @param id - ID Game
  * @returns 
 */
-const getGame = async (id: number): Promise<Game> => {
+const getGame = async (id: number): Promise<Game | null> => {
     validate(IdValidate, id);
 
     // Read game data from cache:

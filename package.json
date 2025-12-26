@@ -1,17 +1,25 @@
 {
   "name": "wmgcat_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend Service for website",
   "main": "index.ts",
   "type": "module",
   "scripts": {
     "start": "tsx index.ts",
     "dev": "tsx watch index.ts",
-    "build": "tsc && tsc-alias",
+    "build": "esbuild ./index.ts --platform=node --bundle --minify --outfile=./dist/index.min.cjs --target=esnext",
     "test": "mocha",
-    "docker": "docker build . -t wmgcat_backend"
+    "docker": "npm run build && docker build . -t wmgcat_backend"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "nodejs",
+    "mocha",
+    "backend",
+    "s3",
+    "postgresql",
+    "mvc"
+  ],
   "author": "wmgcat",
   "license": "MIT",
   "dependencies": {
@@ -22,7 +30,6 @@
     "minio": "^8.0.6",
     "mocha": "^11.7.5",
     "pg": "^8.16.3",
-    "tsc": "^2.0.4",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
@@ -33,6 +40,7 @@
     "@types/express": "^5.0.6",
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.10.1",
-    "@types/pg": "^8.16.0"
+    "@types/pg": "^8.16.0",
+    "esbuild": "^0.27.2"
   }
 }
