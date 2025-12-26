@@ -16,6 +16,10 @@ app.use(cors({
     origin: "*"
 }));
 
+app.get("/openapi.yml", (req: Request, res: Response) => {
+    res.status(200).sendFile("openapi.yml", { root: process.cwd() });
+});
+
 app.use("/games", Games);
 app.use("/creatives", Creatives);
 
