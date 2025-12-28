@@ -3,6 +3,9 @@ import validate from "./validate";
 import z from "zod";
 import minio from "@/libs/minio";
 import redis from "@/libs/redis";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 enum eBucket {
     g = "games",
@@ -52,7 +55,10 @@ const getStorageFiles = async (id: number, bucketName: Bucket = "games"): Promis
                     const href = await minio.presignedGetObject(bucketName, obj.name, 60 * 60 * 8);
                     res({
                         name: obj.name.replace(`${id}/`, ""),
-                        href
+                        href: href.replace(
+                            `${process.env.MINIO_URL}:${process.env.MINIO_PORT}`,
+                            process.env.MINIO_PUBLIC_URL || `${process.env.MINIO_URL}:${process.env.MINIO_PORT}`
+                        )
                     });
                 }));
             }

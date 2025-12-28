@@ -11,14 +11,12 @@ interface MinioCustom {
 type SubMinio = Client & MinioCustom;
 
 const minio = new Client({
-    endPoint: "localhost",
-    port: 9000,
+    endPoint: process.env.MINIO_URL || "localhost",
+    port: Number(process.env.MINIO_PORT || 9000),
     useSSL: false,
     accessKey: process.env.MINIO_ACCESS_KEY,
     secretKey: process.env.MINIO_SECRET_KEY
 }) as SubMinio;
-
-
 
 minio.checkFileExists = async (bucketName: string, object: string): Promise<boolean> => {
     try {
@@ -27,7 +25,5 @@ minio.checkFileExists = async (bucketName: string, object: string): Promise<bool
     catch(err) { return false; }
     return true;
 }
-
-
 
 export default minio;

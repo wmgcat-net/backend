@@ -3,7 +3,7 @@ info:
   title: wmgcat.net
   version: 1.0.0
 servers:
-  - url: api.wmgcat.net
+  - url: https://api.wmgcat.net
 paths:
   /games:
     get:

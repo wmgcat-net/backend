@@ -25,6 +25,8 @@ app.use("/creatives", Creatives);
 
 // Error handler:
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
+    console.log(err);
+
     if (err && (err instanceof Error)) {
         res.status(422).json({
             error_message: err?.message?.toString() || Err.content_invalid
