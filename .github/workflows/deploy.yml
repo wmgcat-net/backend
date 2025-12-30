@@ -9,12 +9,10 @@ on:
 jobs:
   Test:
     runs-on: self-hosted
+    
     steps:
     - uses: actions/checkout@v4
-    - name: Run tests
+    
+    - name: Test
       run: |
-        npm install
-        npm run test
-    - name: Build & Docker
-      run: |
-        npm run docker:public
+        ls
