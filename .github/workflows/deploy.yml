@@ -8,7 +8,7 @@ on:
 
 jobs:
   Test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     strategy:
       matrix:
@@ -28,4 +28,4 @@ jobs:
         npm run test
     - name: Build & Docker
       run: |
-        npm run docker
+        npm run docker:public
