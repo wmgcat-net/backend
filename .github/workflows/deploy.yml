@@ -22,12 +22,11 @@ jobs:
                 registry: ${{ env.REGISTRY }}
                 username: ${{ secrets.GITLAB_LOGIN }}
                 password: ${{ secrets.GITLAB_PASS }}
-      
+            
             - name: Extract metadata (tags, labels) for Docker
-              id: meta
-              uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-              with:
-                images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+              run: |
+                  npm i
+                  npm run docker:public
             
             - name: Build and push Docker image
               uses: docker/build-push-action@v5.3.0
