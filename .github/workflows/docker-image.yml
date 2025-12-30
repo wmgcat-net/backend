@@ -19,6 +19,3 @@ jobs:
       run: |
         npm i
         npm run tests
-    - name: Build
-      run: |
-        npm run docker:public
