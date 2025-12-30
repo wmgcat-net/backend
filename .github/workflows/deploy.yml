@@ -11,11 +11,6 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
-    - name: Pull
-      run: |
-        cd /opt/wmgcat.net/repositories
-        git clone https://github.com/wmgcat-net/backend
-        cd backend
     - name: Run tests
       run: |
         npm install
@@ -23,8 +18,3 @@ jobs:
     - name: Build & Docker
       run: |
         npm run docker:public
-    - name: Clear
-      run: |
-        cd /opt/wmgcat.net/repositories
-        rm -rf backend
-        
