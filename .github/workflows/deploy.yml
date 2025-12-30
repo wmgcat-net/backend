@@ -6,7 +6,7 @@ on:
             - 'master'
 env:
     REGISTRY: registry.gitlab.com
-    IMAGE_NAME: ${{ github.repository }}
+    IMAGE_NAME: wmgcat.net/frontend
 
 jobs:
     build:
@@ -20,8 +20,8 @@ jobs:
               uses: docker/login-action@v3.0.0
               with:
                 registry: ${{ env.REGISTRY }}
-                login: ${{ vars.GITLAB_LOGIN }}
-                password: ${{ secrets.GITLAB }}
+                login: ${{ secrets.GITLAB_LOGIN }}
+                password: ${{ secrets.GITLAB_PASS }}
       
             - name: Extract metadata (tags, labels) for Docker
               id: meta
