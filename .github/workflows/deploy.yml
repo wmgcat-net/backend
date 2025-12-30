@@ -1,29 +1,24 @@
-name: Build and Push Docker Image
+name: Build
 
 on:
-    push:
-        branches:
-            - 'master'
+  push:
+    branches:
+      - 'master'
 env:
-    REGISTRY: registry.gitlab.com
-    IMAGE_NAME: wmgcat.net/frontend
+  IMAGE_NAME: wmgcat.net/backend
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-
-            - name: Log in to the Container registry
-              uses: docker/login-action@v3.0.0
-              with:
-                registry: ${{ env.REGISTRY }}
-                username: ${{ secrets.GITLAB_LOGIN }}
-                password: ${{ secrets.GITLAB_PASS }}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: ${{ vars.REGISTRY }}
+          username: ${{ secrets.GITLAB_LOGIN }}
+          password: ${{ secrets.GITLAB_PASS }}
             
-            - name: Extract metadata (tags, labels) for Docker
-              run: |
-                  npm i
-                  npm run docker:public
+      - name: Build and Push
+        run: |
+          npm i
+          npm run docker:public
