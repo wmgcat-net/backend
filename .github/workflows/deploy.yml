@@ -1,18 +1,35 @@
-name: Deploy to server
+name: Build and Push Docker Image
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    push:
+        branches:
+            - 'master'
+env:
+    REGISTRY: registry.gitlab.com
+    IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  Test:
-    runs-on: self-hosted
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Test
-      run: |
-        ls
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Log in to the Container registry
+              uses: docker/login-action@v3.0.0
+              with:
+                registry: ${{ env.REGISTRY }}
+                token: ${{ secrets.GITLAB }}
+      
+            - name: Extract metadata (tags, labels) for Docker
+              id: meta
+              uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+              with:
+                images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v5.3.0
+              with:
+                context: .
+                push: true
