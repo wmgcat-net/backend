@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [ "master" ]
   workflow_call:
+    inputs:
+      REGISTRY:
+        required: true
+        type: string
+    secrets:
+      GITLAB_LOGIN:
+        required: true
+      GITLAB_PASS:
+        required: true
 
 jobs:
   build:
