@@ -1,10 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
   workflow_call:
     inputs:
       REGISTRY:
@@ -30,7 +26,8 @@ jobs:
           username: ${{ secrets.GITLAB_LOGIN }}
           password: ${{ secrets.GITLAB_PASS }}
             
-      - name: Build and Push
-        run: |
-          npm i
-          npm run docker:public
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
