@@ -10,7 +10,7 @@
     "build": "esbuild ./index.ts --platform=node --bundle --minify --outfile=./dist/index.min.cjs --target=esnext",
     "test": "mocha",
     "docker": "npm run build && docker build . -t wmgcat_backend",
-    "docker:public": "npm run build && docker buildx build --platform linux/amd64,linux/arm64 -t registry.gitlab.com/wmgcat.net/backend . && docker push registry.gitlab.com/wmgcat.net/backend"
+    "docker:public": "npm run build && docker build -t registry.gitlab.com/wmgcat.net/backend . && docker push registry.gitlab.com/wmgcat.net/backend"
   },
   "keywords": [
     "typescript",
@@ -29,7 +29,7 @@
     "express": "^5.2.1",
     "ioredis": "^5.8.2",
     "minio": "^8.0.6",
-    "mocha": "^11.7.5",
+    "mocha": "^0.13.0",
     "path": "^0.12.7",
     "pg": "^8.16.3",
     "tsc-alias": "^1.8.16",
