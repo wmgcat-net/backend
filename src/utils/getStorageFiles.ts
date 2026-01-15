@@ -58,7 +58,7 @@ const getStorageFiles = async (id: number, bucketName: Bucket = "games"): Promis
                         href: href.replace(
                             `${process.env.MINIO_URL}:${process.env.MINIO_PORT}`,
                             process.env.MINIO_PUBLIC_URL || `${process.env.MINIO_URL}:${process.env.MINIO_PORT}`
-                        )
+                        ).split("?")[0] as string
                     });
                 }));
             }
