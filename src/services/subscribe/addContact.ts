@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const client = new Client({
-    url: "ldap://localhost:389",
+    url: "ldap://wmgcat.net:390",
     strictDN: false,
     timeout: 5000,
     connectTimeout: 10000
