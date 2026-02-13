@@ -9,6 +9,7 @@ import cors from "cors";
 import Games from "@/routes/games";
 import Creatives from "@/routes/creatives";
 import Err from "@/utils/errors";
+import { addContact, initLDAP } from "@/services/subscribe";
 
 const app = express();
 
@@ -35,6 +36,10 @@ app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFuncti
     }
 
     next();
+});
+
+initLDAP().then(() => {
+    addContact("tester", "tester@test.ru");
 });
 
 app.listen(3000, () => console.log(`server *:3000 is running!`));
