@@ -38,8 +38,6 @@ app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFuncti
     next();
 });
 
-initLDAP().then(() => {
-    addContact("tester", "tester@test.ru");
-});
+initLDAP();
 
 app.listen(3000, () => console.log(`server *:3000 is running!`));

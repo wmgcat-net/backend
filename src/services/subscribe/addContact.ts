@@ -16,7 +16,7 @@ const client = new Client({
  * return addContact()
 */
 const addContact = async (username: string, email: string): Promise<any> => {
-    await client.bind(`cn=admin,dc=${process.env.LDAP_LOGIN},dc=net`, process.env.LDAP_PASS);
+    await client.bind(`cn=${process.env.LDAP_LOGIN},dc=wmgcat,dc=net`, process.env.LDAP_PASS);
    
     const entry = {
         cn: username,
@@ -32,34 +32,3 @@ const addContact = async (username: string, email: string): Promise<any> => {
 }
 
 export default addContact;
-
-// const ldap = require('ldapjs');
-
-// const client = ldap.createClient({
-//   url: 'ldap://localhost:389'
-// });
-
-// // Подключение
-// client.bind('cn=admin,dc=example,dc=com', 'password', (err) => {
-//   if (err) {
-//     console.error('Bind error:', err);
-//     return;
-//   }
-
-//   // Добавление контакта
-//   const entry = {
-//     cn: 'Ivan Ivanov',
-//     sn: 'Ivanov',
-//     mail: 'ivan@example.com',
-//     objectClass: ['inetOrgPerson', 'top']
-//   };
-
-//   client.add('cn=Ivan Ivanov,ou=contacts,dc=example,dc=com', entry, (err) => {
-//     if (err) {
-//       console.error('Add error:', err);
-//     } else {
-//       console.log('Contact added!');
-//     }
-//     client.unbind();
-//   });
-// });

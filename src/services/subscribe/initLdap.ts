@@ -5,7 +5,7 @@ dotenv.config();
 
 const initLDAP = async () => {
     const client = new Client({
-        url: "ldap://localhost:389",
+        url: "ldap://wmgcat.net:390",
         strictDN: false
     });
 
@@ -13,7 +13,7 @@ const initLDAP = async () => {
         await client.bind(`cn=${process.env.LDAP_LOGIN},dc=wmgcat,dc=net`, process.env.LDAP_PASS);
         await client.add("ou=contacts,dc=wmgcat,dc=net", {
             objectClass: ["organizationalUnit", "top"],
-            ou: "contacts",
+            ou: "contacts"
         });
     }
     finally { await client.unbind(); }
