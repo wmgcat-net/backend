@@ -5,7 +5,7 @@ dotenv.config();
 
 const initLDAP = async () => {
     const client = new Client({
-        url: "ldap://wmgcat.net:390",
+        url: "ldap://ldap:389",
         strictDN: false
     });
 
