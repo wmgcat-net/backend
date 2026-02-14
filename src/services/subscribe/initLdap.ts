@@ -5,7 +5,7 @@ dotenv.config();
 
 const initLDAP = async () => {
     const client = new Client({
-        url: "ldap://ldap:389",
+        url: "ldap://${process.env.LDAP_URL}:389",
         strictDN: false
     });
 

@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const client = new Client({
-    url: "ldap://ldap:389",
+    url: "ldap://${process.env.LDAP_URL}:389",
     strictDN: false,
     timeout: 5000,
     connectTimeout: 10000
