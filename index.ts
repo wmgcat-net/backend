@@ -38,6 +38,6 @@ app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFuncti
     next();
 });
 
-initLDAP();
+// initLDAP();
 
 app.listen(3000, () => console.log(`server *:3000 is running!`));
