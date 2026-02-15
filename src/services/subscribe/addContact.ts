@@ -1,5 +1,6 @@
 import { Client } from "ldapts";
 import dotenv from "dotenv";
+import db from "@/libs/db";
 
 dotenv.config();
 
@@ -16,18 +17,11 @@ const client = new Client({
  * return addContact()
 */
 const addContact = async (username: string, email: string): Promise<any> => {
-    await client.bind(`cn=${process.env.LDAP_LOGIN},dc=wmgcat,dc=net`, process.env.LDAP_PASS);
-   
-    const entry = {
-        cn: username,
-        sn: username,
-        mail: email,
-        objectClass: [ "inetOrgPerson", "top" ]
-    }
-    const safeCN = username.replace(/[,+="<>#;\\]/g, '\\$&');
+    const result = await db.query(`
+        INSERT INTO "emails"
+        SET username=$1, email=$2
+    `, [ username, email ]);
 
-    await client.add(`cn=${safeCN},ou=contacts,dc=wmgcat,dc=net`, entry);
-    await client.unbind();
     return true;
 }
 
