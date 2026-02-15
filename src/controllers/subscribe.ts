@@ -9,8 +9,15 @@ import { Request, Response } from "express";
 const subscribe = async(req: Request, res: Response): Promise<void> => {
     try {
         const { username, email } = req.body;
+        if (!username || !email)
+            throw new Error("no data");
         await addContact(username, email);
-    } finally {
+        console.log("user added");
+    }
+    catch(err) {
+        console.log(err);
+    }
+    finally {
         res.status(200).end();
     }
 }

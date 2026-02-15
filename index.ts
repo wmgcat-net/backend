@@ -23,6 +23,8 @@ app.get("/openapi.yml", (req: Request, res: Response) => {
     res.status(200).sendFile("openapi.yml", { root: process.cwd() });
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/games", Games);
 app.use("/creatives", Creatives);
 app.post("/subscribe", subscribe);
