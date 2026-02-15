@@ -9,9 +9,11 @@ import cors from "cors";
 import Games from "@/routes/games";
 import Creatives from "@/routes/creatives";
 import Err from "@/utils/errors";
-import { addContact, initLDAP } from "@/services/subscribe";
+import { initLDAP } from "@/services/subscribe";
+import subscribe from "@/controllers/subscribe";
 
 const app = express();
+initLDAP();
 
 app.use(cors({
     origin: "*"
@@ -23,6 +25,7 @@ app.get("/openapi.yml", (req: Request, res: Response) => {
 
 app.use("/games", Games);
 app.use("/creatives", Creatives);
+app.post("/subscribe", subscribe);
 
 // Error handler:
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
@@ -38,6 +41,6 @@ app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFuncti
     next();
 });
 
-// initLDAP();
+
 
 app.listen(3000, () => console.log(`server *:3000 is running!`));
