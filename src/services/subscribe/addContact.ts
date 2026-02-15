@@ -18,8 +18,8 @@ const client = new Client({
 */
 const addContact = async (username: string, email: string): Promise<any> => {
     const result = await db.query(`
-        INSERT INTO "emails"
-        SET username=$1, email=$2
+        INSERT INTO "emails" (username, email)
+        VALUES ($1, $2)
     `, [ username, email ]);
 
     return true;
