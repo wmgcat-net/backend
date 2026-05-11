@@ -5,6 +5,7 @@ import express, {
     Response
 } from "express";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 
 import Games from "@/routes/games";
 import Creatives from "@/routes/creatives";
@@ -14,6 +15,16 @@ import subscribe from "@/controllers/subscribe";
 
 const app = express();
 initLDAP();
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 256,
+  message: "Too many requests, retry later",
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+app.use(limiter);
 
 app.use(cors({
     origin: "*"
