@@ -10,12 +10,8 @@ import rateLimit from "express-rate-limit";
 import Games from "@/routes/games";
 import Creatives from "@/routes/creatives";
 import Err from "@/utils/errors";
-import { initLDAP } from "@/services/subscribe";
-import subscribe from "@/controllers/subscribe";
 
 const app = express();
-initLDAP();
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 256,
@@ -38,7 +34,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/games", Games);
 app.use("/creatives", Creatives);
-app.post("/subscribe", subscribe);
 
 // Error handler:
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
